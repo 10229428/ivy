@@ -1,10 +1,5 @@
-import {Component, INJECTOR, Injector, ɵrenderComponent, ɵɵdirectiveInject} from '@angular/core';
+import {Component, Injector, ɵrenderComponent} from '@angular/core';
 
-@LazyLoadDecorator({
-  path: './feature/feature.component',
-  component: 'FeatureComponent',
-  host: 'app-root'
-})
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -32,39 +27,5 @@ export class AppComponent {
     });
   }
 
-  afterViewLoad() {
-    console.log('AppComponent =====> Lazy HOC loaded!');
-  }
-}
 
-export function LazyLoadDecorator(config: { path: string, component: string, host: string }) {
-  return (cmpType) => {
-    const originalFactory = cmpType.ngComponentDef.factory;
-    cmpType.ngComponentDef.factory = (...args) => {
-      const cmp = originalFactory(...args);
-      console.log('LazyLoadComponent =====> cmp: ', cmp);
-      const injector = ɵɵdirectiveInject(INJECTOR);
-      import(`${config.path}`).then(m => {
-        console.log('LazyLoadComponent =====> m: ', m);
-        ɵrenderComponent(m[config.component], {host: config.host, injector});
-      });
-      if (cmp.afterViewLoad) {
-        cmp.afterViewLoad();
-      }
-      return cmp;
-    };
-    return cmpType;
-  };
 }
-
-export function HOC() {
-  return (cmpType) => {
-    const originalFactory = cmpType.ngComponentDef.factory;
-    cmpType.ngComponentDef.factory = (...args) => {
-      const cmp = originalFactory(...args);
-      console.log(cmp);
-      return cmp;
-    };
-  };
-}
-
