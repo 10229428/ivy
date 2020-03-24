@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {APP_NAME} from "../app.module";
 
 @Component({
   selector: 'app-lazy',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LazyComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(APP_NAME) public appName: string) {
+    console.log('LazyComponent =====> appName: ', appName);
+  }
 
   ngOnInit() {
   }

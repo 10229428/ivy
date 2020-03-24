@@ -1,7 +1,33 @@
 <div>
-  <button (click)="loadFeatureComponent()" style="margin-left: 10px;">loadFeatureWithHost</button>
-  <button (click)="lazyLoad()" style="margin-left: 10px;">lazyLoad</button>
+  <button class="btn" type="button" (click)="loadLazyComponentWithRender()"><span>loadLazyWithRender</span></button>
+  <button class="btn" type="button" (click)="loadLazyComponentWithFactory()"><span>loadLazyWithFactory</span></button>
+  <button class="btn" type="button" (click)="loadDynamicComponent()"><span>loadDynamic</span></button>
+
+  <button class="btn" type="button" (click)="lazyLoad()" style="margin-left: 30px;"><span>lazyLoad</span></button>
+  <button class="btn" type="button" (click)="loadFooWithInitData()"><span>loadFooWithInitData</span></button>
+  <button class="btn" type="button" (click)="loadBarWithInputAndOutput()"><span>loadBarWithInputAndOutput</span></button>
+  <button class="btn" type="button" (click)="lazyDynamicModule()"><span>lazyDynamicModule</span></button>
+  <button class="btn" type="button" (click)="loadFeatureComponent()"><span>loadFeatureWithHost</span></button>
+  <button class="btn" type="button" (click)="loadModalChildComponent()"><span>open modal</span></button>
 </div>
 
-<div> ================================================== </div>
+<div> ************************************************************************************************************</div>
+<div #divRef class="click-me">Click me</div>
+<div> ************************************************************************************************************</div>
 
+<ng-container *ngIf="foo">
+  <div>Foo container start</div>
+  <ng-template [ngComponentOutletInjector]="fooInjector" [ngComponentOutlet]="foo | async"></ng-template>
+  <div>Foo container end</div>
+</ng-container>
+
+<div> ************************************************************************************************************</div>
+
+<ng-template #vcr></ng-template>
+
+<div class="content">
+  <div> *************************** Lazy load feature start ***************************</div>
+  <button class="btn" type="button" (click)="loadFeatureComponent()" style="width: 250px;"><span>Lazy Load "feature.component"</span></button>
+  <app-feature class="feature-component"></app-feature>
+  <div> *************************** Lazy load feature end ***************************</div>
+</div>
