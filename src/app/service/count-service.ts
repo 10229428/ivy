@@ -1,18 +1,19 @@
+import {Injectable} from "@angular/core";
+
 @Injectable()
 export class CountService {
-
-  private count = 0;
+  private _count = 0;
 
   constructor() {
-    console.log("In test service constructor");
+    console.log("CountService =====> constructor");
   }
 
   public getCount(): number {
-    return this.count;
+    return this._count;
   }
 
-  public test(): void {
-    console.log("TESTING CALLED!");
-    this.count++;
+  public count(): void {
+    console.log("CountService =====> count");
+    this._count++;
   }
 }
